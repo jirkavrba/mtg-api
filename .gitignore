@@ -1,3 +1,8 @@
+# LSP
+.elixir-tools
+.elixir_ls
+.lexical
+
 # The directory Mix will write compiled artifacts to.
 /_build/
 
