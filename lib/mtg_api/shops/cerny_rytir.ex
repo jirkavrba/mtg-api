@@ -8,15 +8,15 @@ defmodule MtgApi.Shops.CernyRytir do
   @shop_domain "https://cernyrytir.cz"
   @search_url "https://cernyrytir.cz/index.php3?akce=3"
 
-  @spec cards_in_stock(String.t()) :: [CardInStock.t()]
-  def cards_in_stock(card_name) do
+  @spec find_cards_in_stock(String.t()) :: [CardInStock.t()]
+  def find_cards_in_stock(card_name) do
     form = %{
-      "edice_magic" => "libovolna",
-      "rarita" => "A",
-      "foil" => "A",
-      "jmenokarty" => card_name,
-      "triditpodle" => "ceny",
-      "submit" => "Vyhledej"
+      edice_magic: "libovolna",
+      rarita: "A",
+      foil: "A",
+      jmenokarty: card_name,
+      triditpodle: "ceny",
+      submit: "Vyhledej"
     }
 
     with {:ok, response} <- Req.post(@search_url, form: form),
