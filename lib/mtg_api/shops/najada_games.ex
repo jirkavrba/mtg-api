@@ -5,7 +5,7 @@ defmodule MtgApi.Shops.NajadaGames do
 
   alias MtgApi.Shops.CardInStock
 
-  @search_url "https://najada.games/api/v1/najada2/catalog/mtg-singles"
+  @search_url "https://najada.games/api/v1/najada2/catalog/mtg-singles/"
 
   @spec find_cards_in_stock(String.t()) :: [CardInStock.t()]
   def find_cards_in_stock(card_name) do

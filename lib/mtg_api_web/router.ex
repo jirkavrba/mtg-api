@@ -5,6 +5,10 @@ defmodule MtgApiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", MtgApiWeb do
+    get "/", HomeController, :index
+  end
+
   scope "/api", MtgApiWeb do
     pipe_through :api
 
