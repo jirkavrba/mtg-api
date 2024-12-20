@@ -7,8 +7,8 @@ defmodule MtgApi.Shops do
   @type shop_id :: :cerny_rytir | :najada_games
 
   @cache :cards_in_stock
-  # 1 minute
-  @cache_expiration 1 * 60 * 1000
+  # 10 minutes
+  @cache_expiration 10 * 60 * 1000
 
   @spec cache_name() :: :atom
   def cache_name(), do: @cache
