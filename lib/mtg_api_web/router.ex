@@ -7,6 +7,7 @@ defmodule MtgApiWeb.Router do
 
   scope "/", MtgApiWeb do
     get "/", HomeController, :index
+    options "/*path", HomeController, :options
   end
 
   scope "/api", MtgApiWeb do
