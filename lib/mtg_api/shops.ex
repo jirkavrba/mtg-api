@@ -1,8 +1,10 @@
 defmodule MtgApi.Shops do
-  alias MtgApi.Shops.CardInStock
+  alias MtgApi.Shops.CardsInStock
   alias MtgApi.Shops.CernyRytir
   alias MtgApi.Shops.NajadaGames
   require Logger
+
+  @type shop_id :: :cerny_rytir | :najada_games
 
   @cache :cards_in_stock
   # 1 minute
@@ -11,12 +13,15 @@ defmodule MtgApi.Shops do
   @spec cache_name() :: :atom
   def cache_name(), do: @cache
 
-  @spec find_cards_in_stock(String.t()) :: [CardInStock.t()]
+  @spec find_cards_in_stock(String.t()) :: CardsInStock.t()
   def find_cards_in_stock(card_name) do
-    case Cachex.exists?(@cache, card_name) do
-      {:ok, true} -> Cachex.get!(@cache, card_name)
-      {:ok, false} -> find_and_cache(card_name)
-    end
+    cards =
+      case Cachex.exists?(@cache, card_name) do
+        {:ok, true} -> Cachex.get!(@cache, card_name)
+        {:ok, false} -> find_and_cache(card_name)
+      end
+
+    CardsInStock.create_from_cards(cards)
   end
 
   defp find_and_cache(card_name) do
@@ -32,7 +37,6 @@ defmodule MtgApi.Shops do
       |> Enum.flat_map(fn cards -> cards end)
 
     Cachex.put(@cache, card_name, cards, expire: @cache_expiration)
-    |> dbg()
 
     cards
   end

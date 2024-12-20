@@ -4,15 +4,14 @@ defmodule MtgApi.Shops.CardInStock do
   For a given card search, multiple instances can be returned.
   This is due to foils, special prints and cards in various conditions/languages.
   """
-
-  @type shop :: :cerny_rytir | :najada_games
+  alias MtgApi.Shops
 
   @type t :: %__MODULE__{
           full_name: String.t(),
           image_url: String.t(),
           price_czk: non_neg_integer(),
           pieces_in_stock: non_neg_integer(),
-          shop: shop()
+          shop: Shops.shop_id()
         }
 
   @derive Jason.Encoder
