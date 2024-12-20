@@ -42,7 +42,8 @@ defmodule MtgApi.MixProject do
       {:bandit, "~> 1.5"},
       {:req, "~> 0.5.8"},
       {:floki, "~> 0.37.0"},
-      {:cors_plug, "~> 3.0"}
+      {:cors_plug, "~> 3.0"},
+      {:cachex, "~> 4.0"}
     ]
   end
 

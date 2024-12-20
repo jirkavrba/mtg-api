@@ -11,8 +11,7 @@ defmodule MtgApi.Application do
       MtgApiWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:mtg_api, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: MtgApi.PubSub},
-      # Start a worker by calling: MtgApi.Worker.start_link(arg)
-      # {MtgApi.Worker, arg},
+      {Cachex, MtgApi.Shops.cache_name()},
       # Start to serve requests, typically the last entry
       MtgApiWeb.Endpoint
     ]

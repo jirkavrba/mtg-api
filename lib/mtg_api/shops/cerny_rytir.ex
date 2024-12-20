@@ -4,12 +4,15 @@ defmodule MtgApi.Shops.CernyRytir do
   Luckily, this shop has not changed its website design since 2008.
   """
   alias MtgApi.Shops.CardInStock
+  require Logger
 
   @shop_domain "https://cernyrytir.cz"
   @search_url "https://cernyrytir.cz/index.php3?akce=3"
 
   @spec find_cards_in_stock(String.t()) :: [CardInStock.t()]
   def find_cards_in_stock(card_name) do
+    Logger.info("Searching for #{card_name} availability on #{@shop_domain}")
+
     form = %{
       edice_magic: "libovolna",
       rarita: "A",
@@ -60,6 +63,8 @@ defmodule MtgApi.Shops.CernyRytir do
             shop: :cerny_rytir
           }
         end)
+
+      Logger.info("Found #{length(cards)} different variants of #{card_name} on #{@shop_domain}")
 
       cards
     else
