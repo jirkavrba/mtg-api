@@ -38,10 +38,13 @@ defmodule MtgApi.Shops.CernyRytir do
         |> Enum.chunk_every(3, 3, :discard)
         |> Enum.map(fn [top, _, bottom] ->
           full_name =
-            Floki.find(top, "td:nth-child(2) > div > font") |> Floki.text()
+            Floki.find(top, "td:nth-child(2) > div > font")
+            |> Floki.text()
+            |> :unicode.characters_to_binary(:latin1, :utf8)
 
           [image_url] =
-            Floki.find(top, "td:nth-child(1) > a.highslide") |> Floki.attribute("href")
+            Floki.find(top, "td:nth-child(1) > a.highslide")
+            |> Floki.attribute("href")
 
           pieces_in_stock =
             Floki.find(bottom, "td:nth-child(2)")
@@ -65,7 +68,6 @@ defmodule MtgApi.Shops.CernyRytir do
         end)
 
       Logger.info("Found #{length(cards)} different variants of #{card_name} on #{@shop_domain}")
-
       cards
     else
       _ -> []
